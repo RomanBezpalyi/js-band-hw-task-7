@@ -121,4 +121,4 @@ customize it when you are ready for it.
 └── index.js
 ```
 
-Check the demo via link: https://romanbezpalyi.github.io/js-band-hw-task-6/
+Check the demo via link: https://romanbezpalyi.github.io/js-band-hw-task-7/
