@@ -1,3 +1,3 @@
-import ButtonDropdown from './ButtonDropdown';
+import ButtonDropdown from './ButtonDropdownContainer';
 
 export default ButtonDropdown;

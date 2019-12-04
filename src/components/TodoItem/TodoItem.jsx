@@ -2,13 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonDropdown from '../ButtonDropdown';
 
-const TodoItem = ({
-  todo,
-  handleUpdateClick,
-  handleDeleteClick,
-  handleEditClick,
-  setSelectedId,
-}) => {
+const TodoItem = ({ todo }) => {
   let label;
   switch (todo.priority) {
     case 'High':
@@ -29,13 +23,7 @@ const TodoItem = ({
       <p>{todo.description}</p>
       <div className="item-wrapper">
         <span className={`label label-${label}`}> {todo.priority}</span>
-        <ButtonDropdown
-          handleUpdateClick={handleUpdateClick}
-          handleEditClick={handleEditClick}
-          handleDeleteClick={handleDeleteClick}
-          setSelectedId={setSelectedId}
-          todo={todo}
-        />
+        <ButtonDropdown todo={todo} />
       </div>
     </section>
   );
@@ -48,10 +36,6 @@ TodoItem.propTypes = {
     priority: PropTypes.string.isRequired,
     isDone: PropTypes.bool.isRequired,
   }).isRequired,
-  handleUpdateClick: PropTypes.func.isRequired,
-  handleEditClick: PropTypes.func.isRequired,
-  handleDeleteClick: PropTypes.func.isRequired,
-  setSelectedId: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

@@ -1,3 +1,3 @@
-const isModalOpen = state => state.isModalOpen;
+const getModalStatus = state => state.isModalOpen;
 
-export default isModalOpen;
+export default getModalStatus;

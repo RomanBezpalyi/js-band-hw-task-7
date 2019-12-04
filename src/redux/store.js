@@ -1,13 +1,15 @@
 import { createStore, combineReducers } from 'redux';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import isModalOpen from './modalController/reducer';
-import selectedTodoId from './selectedTodoId/reducer';
+import todoInEditMode from './todoInEditMode/reducer';
 import todos from './todos/reducer';
+import filters from './filters/reducer';
 
 const rootReducer = combineReducers({
   todos,
   isModalOpen,
-  selectedTodoId,
+  todoInEditMode,
+  filters,
 });
 
 const enhancer =

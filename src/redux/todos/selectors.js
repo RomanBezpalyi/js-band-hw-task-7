@@ -1,3 +1,3 @@
-const todos = state => state.todos;
+const getTodos = state => state.todos;
 
-export default todos;
+export default getTodos;

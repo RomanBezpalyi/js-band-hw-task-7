@@ -9,6 +9,10 @@ description, or delete it via '...' button. All tasks can be filtered using
 selects in the content's top part. Also, there is an ability to search a task by
 its title using 'Search by title' input.
 
+**Improvements**
+
+- State management is implemented using `redux`.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -64,9 +68,11 @@ customize it when you are ready for it.
 │   │   └── index.js
 │   ├── ButtonDropdown
 │   │   │── ButtonDropdown.jsx
+│   │   │── ButtonDropdownContainer.js
 │   │   └── index.js
 │   ├── Dashboard
 │   │   │── Dashboard.jsx
+│   │   │── DashboardContainer.js
 │   │   └── index.js
 │   ├── Footer
 │   │   │── Footer.jsx
@@ -79,6 +85,7 @@ customize it when you are ready for it.
 │   │   │   │── index.js
 │   │   │   └── ProgressSelect.jsx
 │   │   │── Form.jsx
+│   │   │── FormContainer.jsx
 │   │   └── index.js
 │   ├── Header
 │   │   │── Header.jsx
@@ -88,21 +95,41 @@ customize it when you are ready for it.
 │   │   └── ItemButton.jsx
 │   ├── Modal
 │   │   │── index.js
-│   │   └── Modal.jsx
+│   │   │── Modal.jsx
+│   │   └── ModalContainer.js
 │   ├── pages
 │   │   ├── NotFoundPage.jsx
 │   │   └── TodosPage.jsx
-│   ├──TodoItem
+│   ├── TodoItem
 │   │   │── index.js
 │   │   └── TodoItem.jsx
 │   └── TodoList
 │       │── index.js
-│       └── TodoList.jsx
+│       │── TodoList.jsx
+│       └── TodoListContainer.js
 ├── configs
 │   └── index.js
 ├── helpers
-│   ├── filterTodos.js
-│   └── putTodoToEditMode.js
+│   └── filterTodos.js
+├── redux
+│   ├── filters
+│   │   │── actions.js
+│   │   │── reducer.js
+│   │   └── selectors.js
+│   ├── modalController
+│   │   │── actions.js
+│   │   │── reducer.js
+│   │   └── selectors.js
+│   ├── todoInEditMode
+│   │   │── actions.js
+│   │   │── reducer.js
+│   │   └── selectors.js
+│   ├── todos
+│   │   │── actions.js
+│   │   │── reducer.js
+│   │   └── selectors.js
+│   ├── index.js
+│   └── store.js
 ├── styles
 │   ├── base
 │   │   └── normalize.scss

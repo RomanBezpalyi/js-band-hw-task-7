@@ -5,9 +5,10 @@ import shortid from 'shortid';
 
 export default class Modal extends Component {
   static propTypes = {
-    handleClose: PropTypes.func.isRequired,
-    handleAdd: PropTypes.func.isRequired,
-    handleUpdate: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    addTodo: PropTypes.func.isRequired,
+    updateTodo: PropTypes.func.isRequired,
+    removeTodoFromEditMode: PropTypes.func.isRequired,
     todoInEditMode: PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
@@ -52,7 +53,13 @@ export default class Modal extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { title, description, priority, isDone } = this.state;
-    const { handleAdd, handleUpdate, handleClose, todoInEditMode } = this.props;
+    const {
+      todoInEditMode,
+      addTodo,
+      updateTodo,
+      removeTodoFromEditMode,
+      closeModal,
+    } = this.props;
     const todo = { title, description, priority, isDone };
     if (!title || !description) {
       toast.error('Fill all the fields.');
@@ -60,25 +67,18 @@ export default class Modal extends Component {
     }
     if (todoInEditMode) {
       todo.id = todoInEditMode.id;
-      handleUpdate(todoInEditMode.id, todo);
+      updateTodo(todo);
+      removeTodoFromEditMode();
     } else {
       todo.id = shortid();
-      handleAdd(todo);
+      addTodo(todo);
     }
-    handleClose();
+    closeModal();
   };
-
-  resetCreateForm = () =>
-    this.setState({
-      title: '',
-      description: '',
-      priority: 'Low',
-      isDone: false,
-    });
 
   render() {
     const { title, description, priority } = this.state;
-    const { handleClose } = this.props;
+    const { closeModal } = this.props;
     return (
       <form
         className="thumbnail col-md-4 cl-xs-10 modal-form"
@@ -129,7 +129,7 @@ export default class Modal extends Component {
           <button
             type="button"
             className="btn btn-default col-md-3"
-            onClick={handleClose}
+            onClick={closeModal}
           >
             Cancel
           </button>

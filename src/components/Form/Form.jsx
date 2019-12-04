@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import ProgressSelect from './ProgressSelect';
 import PrioritySelect from './PrioritySelect';
 
-const Form = ({ title, priority, progress, handleOpenModal, handleChange }) => (
+const Form = ({ title, priority, progress, openModal, onChange }) => (
   <form className="form-inline container form">
     <input
       className="form-control col-xs-6 col-md-3"
-      name="title"
       value={title}
+      name="title"
       type="text"
-      onChange={handleChange}
+      onChange={onChange}
       placeholder="Search by title"
     />
-    <ProgressSelect value={progress} handleChange={handleChange} />
-    <PrioritySelect value={priority} handleChange={handleChange} />
+    <ProgressSelect value={progress} handleChange={onChange} />
+    <PrioritySelect value={priority} handleChange={onChange} />
     <button
       className="btn btn-primary col-xs-6 col-sm-4 col-md-1"
       type="button"
-      onClick={handleOpenModal}
+      onClick={openModal}
     >
       Create
     </button>
@@ -29,8 +29,8 @@ Form.propTypes = {
   title: PropTypes.string.isRequired,
   priority: PropTypes.string.isRequired,
   progress: PropTypes.string.isRequired,
-  handleOpenModal: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  openModal: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Form;
