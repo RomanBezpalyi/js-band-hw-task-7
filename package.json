@@ -34,7 +34,8 @@
     "lint-staged": "^9.5.0",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "redux-devtools-extension": "^2.13.8"
   },
   "homepage": "https://romanbezpalyi.github.io/js-band-hw-task-7/"
 }

@@ -5,7 +5,7 @@ const ItemButton = ({ text, handleClick, classNames }) => (
   <button
     type="button"
     onClick={handleClick}
-    className={`dropdown-btn ${classNames}`}
+    className={`dropdown-btn btn ${classNames}`}
   >
     {text}
   </button>

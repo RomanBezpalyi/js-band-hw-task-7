@@ -6,9 +6,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 function App() {
   return (
     <Switch>
-      <Route exact path="/">
-        <Redirect to="/todos" />
-      </Route>
+      <Redirect exact from="/" to="/todos" />
       <Route path="/todos" component={TodosPage} />
       <Route path="*" component={NotFoundPage} />
     </Switch>

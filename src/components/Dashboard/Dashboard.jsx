@@ -1,27 +1,28 @@
 import React, { Component, createRef } from 'react';
+import PropTypes from 'prop-types';
 import Form from '../Form';
 import TodoList from '../TodoList';
 import Modal from '../Modal';
-import filterTodos from '../../helpers/filterTodos';
-import putTodoToEditMode from '../../helpers/putTodoToEditMode';
 
 export default class Dashboard extends Component {
   backdropRef = createRef();
 
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    todoInEditMode: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      priority: PropTypes.string.isRequired,
+      isDone: PropTypes.bool.isRequired,
+    }),
+    isModalOpen: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    removeTodoFromEditMode: PropTypes.func.isRequired,
+  };
 
-    this.state = {
-      todos: [],
-      isModalOpen: false,
-      selectedTodoId: null,
-      searchForm: {
-        title: '',
-        priority: 'All',
-        progress: 'All',
-      },
-    };
-  }
+  static defaultProps = {
+    todoInEditMode: null,
+  };
 
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyPress);
@@ -31,48 +32,9 @@ export default class Dashboard extends Component {
     window.removeEventListener('keydown', this.handleKeyPress);
   }
 
-  // FORM
-
-  handleSearchInputChange = ({ target: { value, name } }) =>
-    this.setState(state => ({
-      searchForm: { ...state.searchForm, [name]: value },
-    }));
-
-  // TODO LIST
-
-  handleUpdateTodo = (id, todo) => {
-    const { todos } = this.state;
-    const index = todos.indexOf(todos.find(task => task.id === id));
-    this.setState(state => ({
-      todos: [
-        ...state.todos.slice(0, index),
-        todo,
-        ...state.todos.slice(index + 1, todos.length),
-      ],
-      selectedTodoId: null,
-    }));
-  };
-
-  handleDeleteTodo = id =>
-    this.setState(state => ({
-      todos: [...state.todos.filter(todo => todo.id !== id)],
-    }));
-
-  setSelectedId = (id = null) => this.setState({ selectedTodoId: id });
-
-  // MODAL
-
-  handleOpenModal = () => this.setState({ isModalOpen: true });
-
-  handleCloseModal = () => {
-    const { selectedTodoId } = this.state;
-    this.setState({ isModalOpen: false });
-    if (selectedTodoId) this.setSelectedId();
-  };
-
   handleKeyPress = e => {
     if (e.code !== 'Escape') return;
-    this.handleCloseModal();
+    this.handleClose();
   };
 
   handleBackdropClick = e => {
@@ -80,34 +42,22 @@ export default class Dashboard extends Component {
     if (current && e.target !== current) {
       return;
     }
-    this.handleCloseModal();
+    this.handleClose();
   };
 
-  handleAddTodo = todo =>
-    this.setState(state => ({ todos: [todo, ...state.todos] }));
+  handleClose = () => {
+    const { closeModal, todoInEditMode, removeTodoFromEditMode } = this.props;
+    if (todoInEditMode) removeTodoFromEditMode();
+    closeModal();
+  };
 
   render() {
-    const { isModalOpen, todos, searchForm, selectedTodoId } = this.state;
-    const { title, priority, progress } = searchForm;
-    const todosToRender = filterTodos(todos, title, priority, progress);
-    const todoInEditMode = putTodoToEditMode(todos, selectedTodoId);
+    const { isModalOpen } = this.props;
 
     return (
       <main className="main-content">
-        <Form
-          title={title}
-          priority={priority}
-          progress={progress}
-          handleOpenModal={this.handleOpenModal}
-          handleChange={this.handleSearchInputChange}
-        />
-        <TodoList
-          todos={todosToRender}
-          handleUpdateClick={this.handleUpdateTodo}
-          handleEditClick={this.handleOpenModal}
-          handleDeleteClick={this.handleDeleteTodo}
-          setSelectedId={this.setSelectedId}
-        />
+        <Form />
+        <TodoList />
         {isModalOpen && (
           <div
             className="backdrop container"
@@ -115,12 +65,7 @@ export default class Dashboard extends Component {
             onClick={this.handleBackdropClick}
             role="button"
           >
-            <Modal
-              handleClose={this.handleCloseModal}
-              handleAdd={this.handleAddTodo}
-              handleUpdate={this.handleUpdateTodo}
-              todoInEditMode={todoInEditMode}
-            />
+            <Modal />
           </div>
         )}
       </main>

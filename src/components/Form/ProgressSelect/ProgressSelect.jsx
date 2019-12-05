@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const ProgressSelect = ({ value, handleChange }) => (
   <select
     className="form-control col-xs-6 col-md-3"
-    name="progress"
     value={value}
+    name="progress"
     onChange={handleChange}
   >
     <option value="All">All</option>
