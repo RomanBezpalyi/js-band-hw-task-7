@@ -32,7 +32,7 @@ const mDTP = dispatch => ({
     }
     dispatch(setFilter(type, value));
   },
-  openModal,
+  openModal: () => dispatch(openModal()),
 });
 
 export default connect(mSTP, mDTP)(Form);
