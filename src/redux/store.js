@@ -12,9 +12,9 @@ const rootReducer = combineReducers({
   filters,
 });
 
-const enhancer =
-  process.env.NODE_ENV === 'development' ? devToolsEnhancer() : null;
+// const enhancer =
+//   process.env.NODE_ENV === 'development' ? devToolsEnhancer() : null;
 
-const store = createStore(rootReducer, enhancer);
+const store = createStore(rootReducer, devToolsEnhancer());
 
 export default store;
